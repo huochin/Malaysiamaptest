@@ -53,4 +53,6 @@ before exact use. Remaining dams without coordinates are in `coordinate_pending.
 - **Explore**: filter by Water/Power, type, state or search; each place has a plain-language explanation and "Think about it" discussion questions.
 - **Learn**: short explainers (how hydro works, why dams are in highlands, trade-offs).
 - **Quiz**: click the map to find 8 random places; scored by distance. For students after class.
+- **EN / 中文** toggle (top of the sidebar) switches the whole interface, place names, learn pages and quiz; the choice is remembered.
+- Detail pages show a photo loaded live from Wikipedia (needs internet; hidden if none is found).
 - Works on phones. Opens directly from disk (data is in `facilities.js`, generated from `facilities.geojson`).
