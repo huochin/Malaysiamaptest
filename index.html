@@ -43,6 +43,20 @@ main{position:relative;min-height:0}
 .pane{display:none;flex:1;min-height:0;overflow:auto;padding:14px 16px 24px}
 .pane.on{display:block}
 
+/* language toggle + photos */
+.head .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:relative}
+.lang{display:flex;background:#ffffff22;border:1px solid #ffffff66;border-radius:99px;padding:2px;flex:none;z-index:2}
+.lang button{border:0;background:none;color:#fff;border-radius:99px;padding:4px 11px;font-size:13px;font-weight:700}
+.lang button.on{background:#fff;color:var(--water-d)}
+.photo{margin:6px 0 10px;border-radius:12px;overflow:hidden;background:#e9e4d6;display:none}
+.photo.on{display:block}
+.photo img{display:block;width:100%;max-height:210px;object-fit:cover}
+.photo figcaption{font-size:11.5px;color:var(--ink2);padding:5px 10px;background:#fff}
+.photo figcaption a{color:var(--water-d)}
+.sub-en{font-size:13px;color:var(--ink2);margin:0 0 6px}
+html[lang=zh-Hans] body{font-family:system-ui,-apple-system,'PingFang SC','Microsoft YaHei','Noto Sans CJK SC',sans-serif}
+html[lang=zh-Hans] .head h1,html[lang=zh-Hans] .detail h2,html[lang=zh-Hans] .quiz .big,html[lang=zh-Hans] #caption h2{font-family:'Songti SC','Noto Serif CJK SC','SimSun',var(--serif)}
+
 /* explore */
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:600;color:var(--ink2);display:flex;gap:6px;align-items:center}
@@ -129,6 +143,7 @@ main{position:relative;min-height:0}
 #caption .ctl button{background:#ffffff22;border:1px solid #ffffff66;color:#fff;border-radius:12px;padding:12px 18px;font-size:18px;font-weight:700}
 .pbar{display:none}
 .present .pbar{display:flex;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:1000;background:#fff;border-radius:99px;padding:5px;box-shadow:0 4px 18px #0004;gap:4px}
+.pbar{flex-wrap:wrap;justify-content:center;max-width:96vw}
 .pbar button{border:0;background:none;border-radius:99px;padding:10px 22px;font-size:18px;font-weight:700;color:var(--ink2)}
 .pbar button.on[data-cat=all]{background:var(--ink);color:#fff}
 .pbar button.on[data-cat=water]{background:var(--water);color:#fff}
@@ -155,29 +170,22 @@ main{position:relative;min-height:0}
 <div id="app">
   <aside id="side">
     <div class="head">
-      <h1>Malaysia Water &amp; Power Atlas</h1>
-      <p>Where Malaysia stores its water and makes its electricity.</p>
+      <div class="top"><h1 data-i18n="title"></h1>
+        <div class="lang" id="lang" role="group" aria-label="Language"><button data-l="en">EN</button><button data-l="zh">中文</button></div></div>
+      <p data-i18n="sub"></p>
       <div class="row">
-        <button class="pill-btn" id="btnPresent" title="Shortcut: P">▶ Present to class</button>
-        <button class="pill-btn" id="btnReset">Reset map</button>
+        <button class="pill-btn" id="btnPresent" title="Shortcut: P" data-i18n="present"></button>
+        <button class="pill-btn" id="btnReset" data-i18n="reset"></button>
       </div>
     </div>
-    <div class="seg" id="seg">
-      <button data-cat="all" class="on">All<small id="cAll"></small></button>
-      <button data-cat="water">💧 Water<small id="cWater"></small></button>
-      <button data-cat="power">⚡ Power<small id="cPower"></small></button>
-    </div>
-    <div class="tabs" id="tabs">
-      <button data-tab="explore" class="on">Explore</button>
-      <button data-tab="learn">Learn</button>
-      <button data-tab="quiz">Quiz</button>
-    </div>
+    <div class="seg" id="seg"></div>
+    <div class="tabs" id="tabs"></div>
     <section class="pane on" id="p-explore">
       <div id="listView">
         <div class="chips" id="chips"></div>
         <div class="filters">
-          <input id="q" type="search" placeholder="Search a name…" aria-label="Search">
-          <select id="state" aria-label="Filter by state"></select>
+          <input id="q" type="search">
+          <select id="state"></select>
         </div>
         <div id="list"></div>
       </div>
@@ -188,12 +196,10 @@ main{position:relative;min-height:0}
   </aside>
   <main>
     <div id="map"></div>
-    <div class="legend"><div><span style="background:var(--water)"></span>Water (dam, reservoir, lake)</div><div><span style="background:var(--power)"></span>Power plant</div></div>
-    <div class="pbar" id="pbar">
-      <button data-cat="all" class="on">All</button><button data-cat="water">💧 Water</button><button data-cat="power">⚡ Power</button><button class="x" id="pExit">✕ Exit</button>
-    </div>
+    <div class="legend" id="legend"></div>
+    <div class="pbar" id="pbar"></div>
     <div id="caption">
-      <div class="t"><h2 id="capT">Malaysia Water &amp; Power Atlas</h2><p id="capS">Press → to start a guided tour of the places on screen.</p></div>
+      <div class="t"><h2 id="capT"></h2><p id="capS"></p></div>
       <div class="ctl"><button id="pPrev">←</button><button id="pNext">→</button></div>
     </div>
   </main>
@@ -207,12 +213,95 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const ICON={
  water:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5C9 7 5.5 10.2 5.5 14.2a6.5 6.5 0 0 0 13 0C18.5 10.2 15 7 12 2.5z"/></svg>',
  power:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 5 13.5h5.5L9.5 22 19 9.8h-5.7z"/></svg>'};
+
+/* ---------- language ---------- */
+let lang='en';
+try{lang=localStorage.getItem('lang')||((navigator.language||'').toLowerCase().startsWith('zh')?'zh':'en')}catch(e){}
+const UI={
+ en:{title:'Malaysia Water & Power Atlas',sub:'Where Malaysia stores its water and makes its electricity.',
+  present:'▶ Present to class',reset:'Reset map',all:'All',water:'💧 Water',power:'⚡ Power',places:n=>n+' places',
+  explore:'Explore',learn:'Learn',quiz:'Quiz',search:'Search a name…',allStates:'All states',
+  lgWater:'Water (dam, reservoir, lake)',lgPower:'Power plant',exit:'✕ Exit',
+  capT:'Malaysia Water & Power Atlas',capS:'Press → to start a guided tour of the places on screen.',
+  k_dam:'Dams & reservoirs',k_lake:'Lakes & wetlands',k_hydro:'Hydro plants',k_thermal:'Thermal plants',
+  k1_dam:'Dam & reservoir',k1_lake:'Lake & wetland',k1_hydro:'Hydro plant',k1_thermal:'Thermal plant',
+  empty:'No places match. Try clearing the search or switching filters.',
+  back:'← All places',ok:'Source-checked location',approx:'Approximate location',
+  fState:'State',fType:'Type',fEnergy:'Energy',fSize:'Size',fCoord:'Coordinates',
+  what:'What is it?',think:'Think about it',moreQ:'🔄 More questions',
+  approxNote:'Location is approximate — teachers: check against JPS / TNB / OpenStreetMap before relying on exact position.',
+  ordS:'📍 By state → A–Z',ordA:'🔤 A–Z only',auto:'⏵ Auto',pause:'⏸ Pause',sat:'🛰 See satellite',next:'Next place →',power_sfx:' power',photoBy:'Photo via Wikipedia',
+  capPrefix:'',sizeFix:v=>v.replace('Approx. capacity ',''),
+  qTitle:'Can you find it on the map?',qIntro:n=>`You'll get ${n} places. Click where you think each one is. The closer you are, the more points you earn.`,
+  qUses:c=>`Uses the ${c==='all'?'water and power':c} places.`,qStart:'Start quiz',
+  qNum:(i,n)=>`Question ${i} of ${n}`,pts:n=>n+' pts',qFind:'Find: ',qClick:'Click the map to place your guess.',
+  qMsg:['Spot on!','Very close!','Getting warm.','Quite far — look at the answer marker.'],
+  qAway:(km,p)=>`You were ${km} km away. +${p} points.`,qNext:'Next question →',qSee:'See my score',
+  qScore:(a,b)=>`You scored ${a} / ${b}`,qGood:['Excellent map skills!','Good effort — try again to improve.','Keep exploring the map, then try again.'],
+  qAgain:'Play again',qBack:'Back to explore'},
+ zh:{title:'马来西亚水资源与电力地图集',sub:'看看马来西亚在哪里储水、在哪里发电。',
+  present:'▶ 课堂演示',reset:'重置地图',all:'全部',water:'💧 水',power:'⚡ 电力',places:n=>n+' 个地点',
+  explore:'探索',learn:'学习',quiz:'测验',search:'搜索名称…',allStates:'所有州属',
+  lgWater:'水资源（水坝、水库、湖泊）',lgPower:'发电站',exit:'✕ 退出',
+  capT:'马来西亚水资源与电力地图集',capS:'按 → 开始导览屏幕上的地点。',
+  k_dam:'水坝与水库',k_lake:'湖泊与湿地',k_hydro:'水力发电站',k_thermal:'火力发电站',
+  k1_dam:'水坝／水库',k1_lake:'湖泊／湿地',k1_hydro:'水力发电站',k1_thermal:'火力发电站',
+  empty:'没有符合条件的地点。请清除搜索或更换筛选条件。',
+  back:'← 所有地点',ok:'位置已核对来源',approx:'位置为近似值',
+  fState:'州属',fType:'类型',fEnergy:'能源',fSize:'规模',fCoord:'坐标',
+  what:'这是什么？',think:'想一想',moreQ:'🔄 换一批问题',
+  approxNote:'位置为近似值——老师请在使用精确位置前，对照 JPS / TNB / OpenStreetMap 核实。',
+  ordS:'📍 按州属 → 字母',ordA:'🔤 仅按字母',auto:'⏵ 自动',pause:'⏸ 暂停',sat:'🛰 查看卫星图',next:'下一个地点 →',power_sfx:'发电',photoBy:'图片来源：维基百科',
+  sizeFix:v=>v.replace('Approx. capacity ','约 '),
+  qTitle:'你能在地图上找到它吗？',qIntro:n=>`将出现 ${n} 个地点。点击你认为它所在的位置，越接近得分越高。`,
+  qUses:c=>`使用${c==='all'?'水与电力':c==='water'?'水资源':'电力'}类地点。`,qStart:'开始测验',
+  qNum:(i,n)=>`第 ${i} 题 / 共 ${n} 题`,pts:n=>n+' 分',qFind:'找出：',qClick:'点击地图放置你的答案。',
+  qMsg:['完全正确！','非常接近！','快接近了。','相差较远——请看答案标记。'],
+  qAway:(km,p)=>`你的答案相距 ${km} 公里，得 ${p} 分。`,qNext:'下一题 →',qSee:'查看成绩',
+  qScore:(a,b)=>`你的得分：${a} / ${b}`,qGood:['地图技能太棒了！','不错，再试一次会更好。','多看看地图，再来挑战吧。'],
+  qAgain:'再玩一次',qBack:'返回探索'}};
+const t=k=>UI[lang][k];
+const ZH_STATE={'Johor':'柔佛','Sarawak':'砂拉越','Sabah':'沙巴','Terengganu':'登嘉楼','Kelantan':'吉兰丹','Selangor':'雪兰莪','Putrajaya':'布城','Penang':'槟城','Kedah':'吉打','Kedah (Langkawi)':'吉打（兰卡威）','Perlis':'玻璃市','Perak':'霹雳','Pahang':'彭亨','Negeri Sembilan':'森美兰'};
+const ZH_TYPE={'Dam / reservoir':'水坝／水库','Dam / reservoir (irrigation)':'水坝／水库（灌溉）','Dam / reservoir (hydropower)':'水坝／水库（水力发电）','Man-made lake / wetland':'人工湖／湿地','Natural lake':'天然湖','Natural lake / Ramsar wetland':'天然湖／拉姆萨尔湿地','Hydroelectric':'水力发电','Thermal':'火力发电'};
+const ZH_FUEL={'Hydro':'水力','Coal':'煤','Coal / gas':'煤／天然气','Gas':'天然气','Gas / diesel':'天然气／柴油'};
+/* Chinese names. VERIFIED = spelling seen in Malaysian Chinese-language sources (China Press, Sin Chew, Oriental Daily,
+   Sarawak govt, Chinese consulate in Penang). Everything else is an unverified transliteration and is shown with the
+   original name in brackets so students are never given a guessed name without its source name. */
+const ZH_NAME={
+ 'Chenderoh Dam':'贞德罗水坝','Chenderoh Power Station':'贞德罗水力发电站',
+ 'Sultan Mahmud / Kenyir Dam':'肯逸水坝','Sultan Mahmud (Kenyir) Power Station':'肯逸（苏丹马末）水力发电站',
+ 'Temenggor Dam':'天猛莪水坝','Temenggor Power Station':'天猛莪水力发电站',
+ 'Air Itam Dam':'亚依淡水坝','Teluk Bahang Dam':'直落巴巷水坝','Mengkuang Dam':'明光水坝',
+ 'Semenyih Dam':'士毛月水坝','Pedu Dam':'柏鲁水坝','Batang Ai Dam':'峇当艾水坝','Batang Ai Hydroelectric Plant':'峇当艾水力发电站',
+ 'Bakun Dam':'巴贡水坝','Bakun Hydroelectric Plant':'巴贡水力发电站','Sungai Selangor Dam':'雪兰莪河水坝',
+ 'Batu Dam':'峇都水坝','Klang Gates Dam':'巴生门水坝','Manjung (Sultan Azlan Shah) Power Station':'曼绒（苏丹阿兹兰沙）发电站'};
+const ZH_GUESS={
+ 'Bekok Dam':'贝科克水坝','Labong Dam':'拉邦水坝','Machap Dam':'马甲水坝','Murum Dam':'姆伦水坝','Murum Hydroelectric Plant':'姆伦水力发电站',
+ 'Tenom Pangi Dam':'丹南邦宜水坝','Tenom Pangi Hydroelectric Plant':'丹南邦宜水力发电站','Pergau Dam':'柏尔高水坝','Pergau Hydroelectric Station':'柏尔高水力发电站',
+ 'Langat Dam':'冷岳水坝','Putrajaya Lake':'布城湖','Timah Tasoh Dam':'添马达索水坝','Bukit Merah Reservoir':'红土坎水库','Padang Saga Dam':'巴东沙迦水坝',
+ 'Sultan Abu Bakar (Jor) Dam':'苏丹阿布峇卡（周尔）水坝','Sultan Yussuf (Jor) Power Station':'苏丹尤索夫（周尔）发电站','Sembrong Dam':'森布隆水坝','Linggiu Dam':'林吉乌水坝',
+ 'Tasik Chini':'吉尼湖','Tasik Bera':'贝拉湖','Babagon Dam':'峇峇冈水坝','Bengoh Dam':'本高水坝',
+ 'Sultan Salahuddin Abdul Aziz (Kapar) Power Station':'苏丹沙拉胡丁（加巴）发电站','Tanjung Bin Power Station':'丹绒滨发电站','Jimah Power Station':'日美发电站',
+ 'Sultan Ismail (Paka) Power Station':'苏丹依斯迈（巴卡）发电站','Pasir Gudang Power Station':'巴西古当发电站','Prai Power Station':'北赖发电站',
+ 'Tuanku Jaafar (Port Dickson) Power Station':'端姑查化（波德申）发电站','Ulu Jelai Hydroelectric Plant':'乌鲁惹莱水力发电站',
+ 'Hulu Terengganu (Puah) Hydroelectric Plant':'上登嘉楼（普亚）水力发电站','Puah Dam':'普亚水坝','Sultan Azlan Shah (Bersia) Power Station':'苏丹阿兹兰沙（比尔西亚）发电站',
+ 'Sultan Azlan Shah (Kenering) Power Station':'苏丹阿兹兰沙（克尼林）发电站','Beris Dam':'勿里斯水坝','Perting Dam':'柏廷水坝','Bukit Kwong Dam':'武吉宽水坝','Anak Endau Dam':'安纳恩多水坝','Connaught Bridge Power Station':'康乐桥发电站',
+ 'Pulau Indah Power Station':'依达岛发电站','Tanjung Kling Power Station':'丹绒格玲发电站','Teluk Gong Power Station':'直落公发电站',
+ 'Sejingkat Power Station':'实钦吉发电站','Balingian Power Station':'巴灵坚发电站','Kimanis Power Station':'基马尼斯发电站'};
+/* Wikipedia article used for the photo (hydro plants reuse the dam's photo); falls back to a search */
+const WIKI={
+ 'Bakun Hydroelectric Plant':'Bakun Dam','Murum Hydroelectric Plant':'Murum Dam','Batang Ai Hydroelectric Plant':'Batang Ai Dam',
+ 'Sultan Mahmud / Kenyir Dam':'Kenyir Dam','Sultan Mahmud (Kenyir) Power Station':'Kenyir Dam','Pergau Hydroelectric Station':'Pergau Dam',
+ 'Tenom Pangi Hydroelectric Plant':'Tenom Pangi Dam','Temenggor Power Station':'Temenggor Dam','Chenderoh Power Station':'Chenderoh Dam',
+ 'Sultan Abu Bakar (Jor) Dam':'Sultan Abu Bakar Dam','Sultan Yussuf (Jor) Power Station':'Sultan Abu Bakar Dam','Putrajaya Lake':'Putrajaya Lake',
+ 'Tasik Chini':'Tasik Chini','Tasik Bera':'Tasik Bera','Bukit Merah Reservoir':'Bukit Merah Lake','Manjung (Sultan Azlan Shah) Power Station':'Manjung Power Station',
+ 'Sultan Salahuddin Abdul Aziz (Kapar) Power Station':'Sultan Salahuddin Abdul Aziz Power Station','Sultan Ismail (Paka) Power Station':'Paka Power Station',
+ 'Tuanku Jaafar (Port Dickson) Power Station':'Tuanku Jaafar Power Station'};
 const KINDS={
- dam:{label:'Dams & reservoirs',cat:'water',color:'#1b7fd1'},
- lake:{label:'Lakes & wetlands',cat:'water',color:'#5bb8e8'},
- hydro:{label:'Hydro plants',cat:'power',color:'#f0a000'},
- thermal:{label:'Thermal plants',cat:'power',color:'#c2410c'}};
+ dam:{cat:'water',color:'#1b7fd1'},lake:{cat:'water',color:'#5bb8e8'},
+ hydro:{cat:'power',color:'#f0a000'},thermal:{cat:'power',color:'#c2410c'}};
 const TEACH={
+ en:{
  dam:{what:'A dam holds back a river to form a reservoir. Reservoirs store water for drinking, irrigation, flood control and sometimes electricity.',
   ask:['Look at the satellite view: what shape is the valley the water fills?','Which towns or rice fields downstream could depend on this water?','What could be lost when a valley is flooded (forest, villages, wildlife)?']},
  lake:{what:'Natural lakes and wetlands store water without a dam. They soak up floods, support fish and birds, and feed rivers in dry spells.',
@@ -220,14 +309,71 @@ const TEACH={
  hydro:{what:'A hydroelectric plant lets stored water fall through turbines. It needs a lot of water and a big drop in height (head), so most are in the mountains or on big rivers.',
   ask:['What landform makes this a good site: steep slope, high rainfall or a large river?','How far is this plant from big cities? How does electricity get there?','Is this renewable? What are the trade-offs?']},
  thermal:{what:'A thermal plant burns coal or gas to make steam that spins a turbine. They are built where fuel can be shipped in, near cooling water and near the people and factories who use the power.',
-  ask:['Is this plant on the coast? Why does that help (fuel by ship, sea water for cooling)?','Which cities or industrial areas does it sit near?','How do thermal plants differ from hydro plants in where they are built?']}};
+  ask:['Is this plant on the coast? Why does that help (fuel by ship, sea water for cooling)?','Which cities or industrial areas does it sit near?','How do thermal plants differ from hydro plants in where they are built?']}},
+ zh:{
+ dam:{what:'水坝拦住河流，形成水库。水库可储存饮用水和灌溉用水，也能防洪，有时还用来发电。',
+  ask:['看看卫星图：水所淹没的山谷是什么形状？','下游有哪些城镇或稻田可能依靠这里的水？','山谷被淹没后，可能会失去什么（森林、村庄、野生动物）？']},
+ lake:{what:'天然湖泊和湿地不靠水坝也能蓄水。它们能吸收洪水，养育鱼类和鸟类，并在干旱时补给河流。',
+  ask:['这个湖和河流相连吗？水往哪个方向流出？','为什么湿地在季风大雨期间很重要？','附近的农业或旅游业会如何影响这个湖？']},
+ hydro:{what:'水力发电站让储存的水从高处落下，推动涡轮机。它需要大量的水和很大的落差（水头），所以大多建在山区或大河上。',
+  ask:['什么地形使这里成为好地点：陡坡、高降雨量，还是大河？','这座电站离大城市有多远？电力是怎么送过去的？','水力发电是可再生的吗？它有什么利弊？']},
+ thermal:{what:'火力发电站燃烧煤或天然气产生蒸汽，推动涡轮机。它们建在燃料能够运进来、靠近冷却用水，也靠近用电的居民和工厂的地方。',
+  ask:['这座电站在海岸边吗？这样做有什么好处（燃料靠船运、用海水冷却）？','它靠近哪些城市或工业区？','火力发电站与水力发电站在选址上有什么不同？']}}};
+
+/* Pools of discussion questions: each place shows 3, picked per place; "More questions" reshuffles */
+const ASK={
+ en:{
+ dam:['Look at the satellite view: what shape is the valley the water fills?','Which towns or rice fields downstream could depend on this water?','What could be lost when a valley is flooded (forest, villages, wildlife)?',
+  'Roughly how long is the dam wall compared with the width of the reservoir? Why is it built at that spot?','What would happen downstream during a long drought, and who should get water first?','What would happen if heavy monsoon rain filled the reservoir too quickly? How does a dam prepare for this?',
+  'Zoom out: which river is this dam on, and where does that river reach the sea?','Is the water here mainly for drinking, farming or electricity? How could you tell from the map?','Why might a country build many small dams instead of one huge one?','How could people use the reservoir for fun or jobs (fishing, boating, tourism) without harming the water?','Silt (mud) slowly fills reservoirs. Why is a forested catchment good for a dam?'],
+ lake:['Is this lake connected to a river? Which way does the water flow out?','Why are wetlands important during heavy monsoon rain?','How could nearby farming or tourism affect the lake?',
+  'Natural lakes and man-made reservoirs both hold water. How can you tell them apart on the satellite view?','Which animals and plants might depend on this lake?','What could happen to the lake if the land around it is cleared or built on?','If the water here became polluted, who would notice first?','Why do people protect some wetlands with special status (for example Ramsar sites)?','How could a lake like this help during a drought?'],
+ hydro:['What landform makes this a good site: steep slope, high rainfall or a large river?','How far is this plant from big cities? How does electricity get there?','Is this renewable? What are the trade-offs?',
+  'Why is a tall dam on a steep valley better for power than a low dam on a flat river?','What happens to electricity output in a dry year? How could the country make up the shortfall?','Look at the reservoir size. Why might a bigger reservoir give more steady power?','Who lived in the valley before the dam? What should happen to them when a reservoir is built?','Hydro plants can start and stop within minutes. Why is that useful to a power grid?','What happens to fish that swim up or down this river when a dam blocks it?','Could this reservoir also supply drinking water or stop floods? What would that need?','Compare this plant with a coal plant: which is cleaner, which is cheaper to build, which can you place anywhere?'],
+ thermal:['Is this plant on the coast? Why does that help (fuel by ship, sea water for cooling)?','Which cities or industrial areas does it sit near?','How do thermal plants differ from hydro plants in where they are built?',
+  'Coal and gas come from far away. How do they arrive at this plant?','Why does a thermal plant need so much cooling water, and where does the warm water go?','What comes out of the chimney? How could we reduce it?','What would happen to the nearby city if this plant stopped working for a day?','Why might Malaysia keep using gas and coal even though it has hydro dams?','Gas plants are usually cleaner than coal plants. Why might a country still build coal plants?','Why are thermal plants often built near ports rather than near people\'s homes?','How could solar panels or batteries reduce how much this plant has to run?']},
+ zh:{
+ dam:['看看卫星图：水所淹没的山谷是什么形状？','下游有哪些城镇或稻田可能依靠这里的水？','山谷被淹没后，可能会失去什么（森林、村庄、野生动物）？',
+  '水坝的坝身长度和水库的宽度相比如何？为什么把坝建在这个位置？','遇到长时间干旱，下游会怎样？谁应该优先得到水？','如果季风大雨让水库水位涨得太快，会怎样？水坝要怎么提前准备？',
+  '把地图缩小：这座水坝建在哪条河上？那条河在哪里入海？','这里的水主要用来饮用、灌溉还是发电？你能从地图上看出来吗？','为什么一个国家会建很多小水坝，而不是一座超大水坝？','人们怎样利用水库来游玩或谋生（钓鱼、划船、旅游），又不伤害水质？','泥沙会慢慢填满水库。为什么集水区有森林对水坝有好处？'],
+ lake:['这个湖和河流相连吗？水往哪个方向流出？','为什么湿地在季风大雨期间很重要？','附近的农业或旅游业会如何影响这个湖？',
+  '天然湖和人工水库都能蓄水。在卫星图上你怎样分辨它们？','哪些动物和植物可能依靠这个湖生存？','如果湖周围的土地被清除或开发，湖会怎样？','如果这里的水被污染，谁会最先发现？','为什么有些湿地会被列入特殊保护名单（例如拉姆萨尔湿地）？','这样的湖在干旱时能起什么作用？'],
+ hydro:['什么地形使这里成为好地点：陡坡、高降雨量，还是大河？','这座电站离大城市有多远？电力是怎么送过去的？','水力发电是可再生的吗？它有什么利弊？',
+  '为什么建在陡峭山谷的高坝，比建在平坦河上的矮坝更适合发电？','干旱年份发电量会怎样？国家要怎样弥补电力不足？','看看水库的大小。为什么较大的水库能让供电更稳定？','水坝建成前，谁住在这个山谷？建水库时应该怎样安置他们？','水力发电站几分钟内就能启动或停机。这对电网有什么用？','水坝挡住河流后，在河里上下游的鱼会怎样？','这个水库还能供应饮用水或防洪吗？需要什么条件？','把这座电站和燃煤电厂比一比：哪个更清洁、哪个建造更便宜、哪个可以建在任何地方？'],
+ thermal:['这座电站在海岸边吗？这样做有什么好处（燃料靠船运、用海水冷却）？','它靠近哪些城市或工业区？','火力发电站与水力发电站在选址上有什么不同？',
+  '煤和天然气都来自远方。它们是怎么运到这座电站的？','为什么火力发电站需要这么多冷却水？排出的热水去了哪里？','烟囱排出的是什么？我们怎样减少排放？','如果这座电站停运一天，附近的城市会怎样？','马来西亚有水力发电坝，为什么还继续使用天然气和煤？','天然气电厂通常比燃煤电厂清洁。为什么有的国家仍然兴建燃煤电厂？','为什么火力发电站常建在港口附近，而不是居民家附近？','太阳能板或电池怎样减少这座电站需要发电的时间？']}};
+let askRound=0;
+function pickAsk(f){
+  const pool=ASK[lang][f.kind].map((q,i)=>i);let seed=(f.id+1)*7919+askRound*104729;
+  const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296};
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+  return pool.slice(0,3).map(i=>ASK[lang][f.kind][i]);
+}
 const kindOf=p=>p.category==='water'?(/lake|wetland/i.test(p.type)?'lake':'dam'):(p.fuel==='Hydro'?'hydro':'thermal');
 const feats=window.FACILITIES.features.map((f,i)=>({id:i,lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0],...f.properties,kind:kindOf(f.properties)}));
 feats.sort((a,b)=>a.name.localeCompare(b.name));feats.forEach((f,i)=>f.id=i);
-const state={cat:'all',kinds:new Set(Object.keys(KINDS)),q:'',st:'',sel:null,present:false,quiz:null};
+const nm=f=>lang==='zh'?(ZH_NAME[f.name]||(ZH_GUESS[f.name]?ZH_GUESS[f.name]+'（'+f.name+'）':f.name)):f.name;
+const zhVerified=f=>!!ZH_NAME[f.name];
+const stN=s=>lang==='zh'?(ZH_STATE[s]||s):s;
+const tyN=s=>lang==='zh'?(ZH_TYPE[s]||s):s;
+const fuN=s=>lang==='zh'?(ZH_FUEL[s]||s):s;
+const state={order:'state',cat:'all',kinds:new Set(Object.keys(KINDS)),q:'',st:'',sel:null,present:false,quiz:null};
 const visible=()=>feats.filter(f=>(state.cat==='all'||f.category===state.cat)&&state.kinds.has(f.kind)&&
-  (!state.st||f.state===state.st)&&(!state.q||(f.name+' '+f.state).toLowerCase().includes(state.q)));
+  (!state.st||f.state===state.st)&&(!state.q||(f.name+' '+nm(f)+' '+f.state+' '+stN(f.state)).toLowerCase().includes(state.q)));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- photos (Wikipedia, loaded in the browser) ---------- */
+const photoCache={};
+function getPhoto(f){
+  const title=WIKI[f.name]||f.name;
+  if(photoCache[title]) return photoCache[title];
+  const api='https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&prop=pageimages&piprop=thumbnail&pithumbsize=640';
+  const pick=j=>{const pg=Object.values((j.query&&j.query.pages)||{}).filter(p=>p.thumbnail).sort((a,b)=>(a.index||0)-(b.index||0))[0];
+    return pg?{src:pg.thumbnail.source,url:'https://en.wikipedia.org/wiki/'+encodeURIComponent(pg.title.replace(/ /g,'_')),title:pg.title}:null};
+  return photoCache[title]=fetch(api+'&redirects=1&titles='+encodeURIComponent(title)).then(r=>r.json()).then(pick)
+    .then(r=>r||fetch(api+'&generator=search&gsrlimit=1&gsrsearch='+encodeURIComponent(title+' Malaysia')).then(r=>r.json()).then(pick))
+    .catch(()=>null);
+}
 
 /* ---------- map ---------- */
 const map=L.map('map',{zoomControl:false,zoomSnap:.25}).fitBounds([[0.9,99.6],[7.4,119.3]],{padding:[10,10]});
@@ -250,15 +396,15 @@ function refresh(){
   const v=visible(),ids=new Set(v.map(f=>f.id));
   layer.clearLayers();
   if(!state.quiz) v.forEach(f=>layer.addLayer(markers[f.id]));
-  $('#cAll').textContent=feats.length+' places';
-  $('#cWater').textContent=feats.filter(f=>f.category==='water').length+' places';
-  $('#cPower').textContent=feats.filter(f=>f.category==='power').length+' places';
+  $('#cAll').textContent=t('places')(feats.length);
+  $('#cWater').textContent=t('places')(feats.filter(f=>f.category==='water').length);
+  $('#cPower').textContent=t('places')(feats.filter(f=>f.category==='power').length);
   $$('#seg button, #pbar button[data-cat]').forEach(b=>b.classList.toggle('on',b.dataset.cat===state.cat));
   $$('#chips .chip').forEach(c=>c.classList.toggle('on',state.kinds.has(c.dataset.k)));
   const L_=$('#list');
   L_.innerHTML=v.length?v.map(f=>`<button class="item" data-id="${f.id}"><span class="ico ${f.category}">${ICON[f.category]}</span>
-    <span><div class="nm">${esc(f.name)}</div><div class="sub">${esc(f.state)} · ${f.fuel?esc(f.fuel):esc(f.type)}</div></span></button>`).join('')
-    :'<div class="empty">No places match. Try clearing the search or switching filters.</div>';
+    <span><div class="nm">${esc(nm(f))}</div><div class="sub">${esc(stN(f.state))} · ${f.fuel?esc(fuN(f.fuel)):esc(tyN(f.type))}</div></span></button>`).join('')
+    :`<div class="empty">${t('empty')}</div>`;
   if(state.sel!==null&&!ids.has(state.sel)) closeDetail();
 }
 
@@ -268,78 +414,142 @@ function select(id,{fly=true}={}){
   $$('.mk').forEach(e=>e.classList.remove('sel'));
   markers[id].getElement()?.firstChild.classList.add('sel');
   if(fly) map.flyTo([f.lat,f.lon],Math.max(map.getZoom(),9),{duration:.9});
-  const t=TEACH[f.kind],ok=f.confidence!=='C';
-  $('#detail').innerHTML=`<button class="back" id="back">← All places</button>
-   <h2>${esc(f.name)}</h2>
-   <span class="tag ${f.category}">${esc(KINDS[f.kind].label.replace(/s$/,''))}</span>
-   <span class="tag ${ok?'ok':'approx'}">${ok?'Source-checked location':'Approximate location'}</span>
-   <dl class="facts"><dt>State</dt><dd>${esc(f.state)}</dd><dt>Type</dt><dd>${esc(f.type)}</dd>
-   ${f.fuel?`<dt>Energy</dt><dd>${esc(f.fuel)}</dd>`:''}${f.note?`<dt>Size</dt><dd>${esc(f.note.replace('Approx. capacity ',''))}</dd>`:''}
-   <dt>Coordinates</dt><dd>${f.lat.toFixed(3)}°N, ${f.lon.toFixed(3)}°E</dd></dl>
-   <div class="box"><h3>What is it?</h3><p>${t.what}</p></div>
-   <div class="box q"><h3>Think about it</h3><ul>${t.ask.map(a=>`<li>${a}</li>`).join('')}</ul></div>
-   ${ok?'':'<p style="font-size:12.5px;color:var(--ink2)">Location is approximate — teachers: check against JPS / TNB / OpenStreetMap before relying on exact position.</p>'}
-   <div class="nav2"><button class="btn ghost" id="sat">🛰 See satellite</button><button class="btn" id="nxt">Next place →</button></div>`;
+  renderDetail();
   $('#listView').hidden=true;$('#detail').hidden=false;
+  setTab('explore');
+}
+function renderDetail(){
+  const f=feats[state.sel];if(!f)return;
+  const T=TEACH[lang][f.kind],ok=f.confidence!=='C',id=f.id;
+  $('#detail').innerHTML=`<button class="back" id="back">${t('back')}</button>
+   <h2>${esc(nm(f))}</h2>${lang==='zh'?`<p class="sub-en">${esc(f.name)}${zhVerified(f)?'':' · 中文名待核实'}</p>`:''}
+   <span class="tag ${f.category}">${esc(t('k1_'+f.kind))}</span>
+   <span class="tag ${ok?'ok':'approx'}">${ok?t('ok'):t('approx')}</span>
+   <figure class="photo" id="photo" style="margin-left:0;margin-right:0"></figure>
+   <dl class="facts"><dt>${t('fState')}</dt><dd>${esc(stN(f.state))}</dd><dt>${t('fType')}</dt><dd>${esc(tyN(f.type))}</dd>
+   ${f.fuel?`<dt>${t('fEnergy')}</dt><dd>${esc(fuN(f.fuel))}</dd>`:''}${f.note?`<dt>${t('fSize')}</dt><dd>${esc(t('sizeFix')(f.note))}</dd>`:''}
+   <dt>${t('fCoord')}</dt><dd>${f.lat.toFixed(3)}°N, ${f.lon.toFixed(3)}°E</dd></dl>
+   <div class="box"><h3>${t('what')}</h3><p>${T.what}</p></div>
+   <div class="box q"><h3>${t('think')}</h3><ul id="asks">${pickAsk(f).map(a=>`<li>${a}</li>`).join('')}</ul><button class="btn ghost" id="moreq" style="margin-top:6px;padding:6px 12px;font-size:13px">${t('moreQ')}</button></div>
+   ${ok?'':`<p style="font-size:12.5px;color:var(--ink2)">${t('approxNote')}</p>`}
+   <div class="nav2"><button class="btn ghost" id="sat">${t('sat')}</button><button class="btn" id="nxt">${t('next')}</button></div>`;
   $('#back').onclick=closeDetail;
+  $('#moreq').onclick=()=>{askRound++;$('#asks').innerHTML=pickAsk(f).map(a=>`<li>${a}</li>`).join('')};
   $('#sat').onclick=()=>{map.removeLayer(base.Relief);map.removeLayer(base.Clean);map.removeLayer(base.Streets);base.Satellite.addTo(map);map.flyTo([f.lat,f.lon],12,{duration:1})};
   $('#nxt').onclick=()=>step(1);
-  setTab('explore');
-  $('#capT').textContent=f.name;$('#capS').textContent=`${f.state} · ${f.fuel?f.fuel+' power':f.type} — ${t.what.split('. ')[0]}.`;
+  getPhoto(f).then(p=>{const el=$('#photo');if(!p||!el||state.sel!==id)return;
+    el.innerHTML=`<img alt="${esc(nm(f))}" src="${esc(p.src)}" loading="lazy"><figcaption>${t('photoBy')}: <a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></figcaption>`;
+    el.classList.add('on');el.querySelector('img').onerror=()=>el.classList.remove('on')});
+  const tl=tourList(),pos=tl.findIndex(x=>x.id===f.id)+1;
+  $('#capT').textContent=nm(f);$('#capS').textContent=`${pos?pos+' / '+tl.length+' · ':''}${stN(f.state)} · ${f.fuel?fuN(f.fuel)+t('power_sfx'):tyN(f.type)} — ${T.what.split(/(?<=[.。])\s*/)[0]}`;
 }
-function closeDetail(){state.sel=null;$('#detail').hidden=true;$('#listView').hidden=false;$$('.mk').forEach(e=>e.classList.remove('sel'))}
+function closeDetail(){state.sel=null;$('#detail').hidden=true;$('#listView').hidden=false;$$('.mk').forEach(e=>e.classList.remove('sel'));
+  $('#capT').textContent=t('capT');$('#capS').textContent=t('capS')}
+const stKey=s=>s.replace(/\s*\(.*\)/,'');
+function tourList(){const v=visible();
+  return state.order==='state'?[...v].sort((a,b)=>stKey(a.state).localeCompare(stKey(b.state))||a.name.localeCompare(b.name)):v}
 function step(d){
-  const v=visible();if(!v.length)return;
+  const v=tourList();if(!v.length)return;
   let i=v.findIndex(f=>f.id===state.sel);i=i<0?(d>0?0:v.length-1):(i+d+v.length)%v.length;
   select(v[i].id);
 }
 $('#list').addEventListener('click',e=>{const b=e.target.closest('.item');if(b)select(+b.dataset.id)});
 
 /* filters */
-$('#chips').innerHTML=Object.entries(KINDS).map(([k,v])=>`<button class="chip" data-k="${k}" style="--c:${v.color}"><i></i>${v.label}</button>`).join('');
 $('#chips').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;const k=c.dataset.k;state.kinds.has(k)?state.kinds.delete(k):state.kinds.add(k);refresh()});
-$('#state').innerHTML='<option value="">All states</option>'+[...new Set(feats.map(f=>f.state))].sort().map(s=>`<option>${esc(s)}</option>`).join('');
 $('#state').onchange=e=>{state.st=e.target.value;refresh();fitVisible()};
 $('#q').oninput=e=>{state.q=e.target.value.trim().toLowerCase();refresh()};
 function setCat(c){state.cat=c;
   state.kinds=new Set(Object.entries(KINDS).filter(([k,v])=>c==='all'||v.cat===c).map(([k])=>k));
   refresh();fitVisible()}
-$$('#seg button, #pbar button[data-cat]').forEach(b=>b.onclick=()=>setCat(b.dataset.cat));
 function fitVisible(){const v=visible();if(!v.length)return;
   v.length===1?map.flyTo([v[0].lat,v[0].lon],9):map.flyToBounds(L.latLngBounds(v.map(f=>[f.lat,f.lon])).pad(.25),{duration:.8,maxZoom:10})}
 $('#btnReset').onclick=()=>{state.q='';state.st='';$('#q').value='';$('#state').value='';closeDetail();setCat('all');
   if(!map.hasLayer(base.Relief)){map.removeLayer(base.Satellite);base.Relief.addTo(map)}map.flyToBounds(home,{duration:.8})};
 
 /* ---------- tabs ---------- */
-function setTab(t){$$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
-  $$('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+t));
-  if(t==='quiz'&&!state.quiz)renderQuizIntro(); if(t!=='quiz'&&state.quiz)endQuiz()}
+function setTab(t_){$$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t_));
+  $$('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+t_));
+  if(t_==='quiz'&&!state.quiz)renderQuizIntro(); if(t_!=='quiz'&&state.quiz)endQuiz()}
 $('#tabs').onclick=e=>{const b=e.target.closest('button');if(b)setTab(b.dataset.tab)};
 
 /* ---------- learn ---------- */
-$('#p-learn').innerHTML=`
-<details open><summary>How does a hydroelectric plant work?</summary>
-<svg viewBox="0 0 400 190" role="img" aria-label="Cross-section of a hydroelectric dam"><rect width="400" height="190" fill="#e8f3fa"/>
-<path d="M0 60 Q70 50 150 62 L150 190 L0 190Z" fill="#8fb98b"/><path d="M0 70 Q90 60 150 72 L150 190 L0 190Z" fill="#1b7fd1" opacity=".75"/>
-<path d="M150 50 L185 50 L200 190 L140 190Z" fill="#6b7a82"/><path d="M200 140 L400 150 L400 190 L200 190Z" fill="#8fb98b"/>
-<rect x="215" y="118" width="46" height="34" rx="4" fill="#f0a000"/><path d="M200 128 L215 135" stroke="#1b7fd1" stroke-width="6"/><path d="M262 140 L400 148" stroke="#1b7fd1" stroke-width="6" opacity=".6"/>
-<path d="M290 118 V70 M290 70 H340 M340 70 V90" stroke="#0d2b3a" stroke-width="2" fill="none"/><path d="M345 90 l-6 12 h5 l-3 12 10-16 h-5z" fill="#f0a000"/>
-<text x="20" y="40" font-size="13" fill="#0d2b3a" font-weight="700">Reservoir</text><text x="215" y="108" font-size="12" fill="#0d2b3a" font-weight="700">Turbine</text>
-<text x="300" y="60" font-size="12" fill="#0d2b3a" font-weight="700">To the grid</text><text x="170" y="40" font-size="12" fill="#0d2b3a" font-weight="700">Dam</text></svg>
-<ol><li>The dam stores river water high up.</li><li>Gates open and water rushes down a pipe (penstock).</li><li>The moving water spins a turbine.</li><li>A generator turns that spin into electricity.</li><li>Water returns to the river downstream.</li></ol></details>
-<details><summary>Dam vs reservoir vs catchment</summary><p><b>Catchment:</b> the land where rain flows to one river. <b>Dam:</b> the wall across the river. <b>Reservoir:</b> the lake that builds up behind the dam. Bigger catchment + steady rainfall = more reliable water.</p></details>
+const L_TXT={
+ en:{lbl:['Reservoir','Dam','Penstock (pipe)','Turbine + generator','Power lines','River','Intake gate','Transformer','Tailrace'],
+  svg:'Cross-section of a hydroelectric dam: reservoir, dam, penstock, turbine and generator, power lines and river',
+  hydroQ:'How does a hydroelectric plant work?',
+  steps:['The dam holds river water high up, forming a reservoir.','The intake gate opens (a screen keeps out logs and debris) and water rushes down the penstock.','At the powerhouse at the foot of the dam, the water hits the turbine and spins it.','The turbine shaft turns the generator above it, which makes electricity.','A transformer raises the voltage so power lines can carry it to the grid, while the used water leaves through the tailrace back to the river.'],
+  html:`<details><summary>Dam vs reservoir vs catchment</summary><p><b>Catchment:</b> the land where rain flows to one river. <b>Dam:</b> the wall across the river. <b>Reservoir:</b> the lake that builds up behind the dam. Bigger catchment + steady rainfall = more reliable water.</p></details>
 <details><summary>Why are hydro dams in the highlands?</summary><p>Power depends on <b>flow</b> (how much water) and <b>head</b> (how far it drops). Mountains give steep drops and heavy rain, so Perak, Pahang, Terengganu, Kelantan, Sabah and Sarawak host the biggest hydro schemes.</p></details>
 <details><summary>Why are thermal plants on the coast?</summary><p>Coal and gas arrive by ship, sea water cools the steam, and ports and industrial areas need lots of power nearby. Look for Manjung, Tanjung Bin and Pasir Gudang on the map.</p></details>
 <details><summary>One dam, many jobs</summary><ul><li><b>Drinking water</b> – Semenyih, Langat, Air Itam</li><li><b>Irrigation</b> – Pedu, Timah Tasoh (rice fields of the north)</li><li><b>Electricity</b> – Bakun, Kenyir, Temenggor</li><li><b>Flood control</b> – holding back monsoon rain</li></ul></details>
 <details><summary>Costs and trade-offs</summary><ul><li>Flooding forests and villages when a reservoir fills</li><li>Changes to river life downstream</li><li>Coal and gas plants release carbon dioxide</li><li>Hydro depends on rainfall, so droughts reduce output</li></ul></details>
-<details><summary>About the data</summary><p>Locations marked <b>approximate</b> are placed by general geographic knowledge and may be off by several kilometres. Source-checked locations come from JPS and hydropower references.</p></details>`;
+<details><summary>About the data</summary><p>Locations marked <b>approximate</b> are placed by general geographic knowledge and may be off by several kilometres. Source-checked locations come from JPS and hydropower references.</p></details>`},
+ zh:{lbl:['水库','水坝','压力水管','涡轮机＋发电机','输电线','河流','进水口闸门','变压器','尾水渠'],
+  svg:'水力发电站剖面图：水库、水坝、压力水管、涡轮机和发电机、输电线与河流',
+  hydroQ:'水力发电站是怎么运作的？',
+  steps:['水坝把河水拦在高处，形成水库。','进水口闸门打开（拦污栅挡住木头和杂物），水沿压力水管冲下去。','在坝脚的发电厂房，水冲击涡轮机使它旋转。','涡轮机的转轴带动上方的发电机发电。','变压器提高电压，输电线才能把电送到电网；用过的水则经尾水渠流回河里。'],
+  html:`<details><summary>水坝、水库和集水区有什么不同？</summary><p><b>集水区：</b>雨水汇流到同一条河的土地范围。<b>水坝：</b>横跨河流的拦水墙。<b>水库：</b>水坝后面蓄积成的湖。集水区越大、降雨越稳定，水源就越可靠。</p></details>
+<details><summary>为什么水力发电坝多在高地？</summary><p>发电量取决于<b>流量</b>（水有多少）和<b>水头</b>（水落下的高度）。山区落差大、雨量多，因此霹雳、彭亨、登嘉楼、吉兰丹、沙巴和砂拉越拥有最大的水力发电工程。</p></details>
+<details><summary>为什么火力发电站建在海岸？</summary><p>煤和天然气用船运来，海水可以冷却蒸汽，港口和工业区附近也需要大量电力。请在地图上找找曼绒、丹绒滨和巴西古当。</p></details>
+<details><summary>一座水坝，多种用途</summary><ul><li><b>饮用水</b> – 士毛月、冷岳、亚依淡</li><li><b>灌溉</b> – 比都、添马达索（北部的稻田）</li><li><b>发电</b> – 巴昆、肯逸、天猛公</li><li><b>防洪</b> – 拦住季风带来的大雨</li></ul></details>
+<details><summary>代价与取舍</summary><ul><li>水库蓄水时会淹没森林和村庄</li><li>下游的河流生态会改变</li><li>燃煤和燃气电厂会排放二氧化碳</li><li>水力发电依赖降雨，干旱会使发电量下降</li></ul></details>
+<details><summary>关于数据</summary><p>标注为<b>近似</b>的位置是凭一般地理知识放置的，可能有几公里的误差。已核对来源的位置来自 JPS 和水电资料。</p></details>`}};
+function hydroSVG(l){return `<svg viewBox="0 0 420 246" role="img" aria-label="${esc(l.svg)}" font-family="inherit">
+<rect width="420" height="246" fill="#e8f3fa"/>
+<path d="M0 34 Q70 24 110 40 L146 52 V70 H0Z" fill="#9ec29a"/>
+<path d="M0 62 H146 V204 L0 176Z" fill="#1b7fd1" opacity=".82"/>
+<path d="M0 62 H146" stroke="#fff" stroke-width="2" opacity=".75"/>
+<path d="M14 96 h26 M44 126 h30 M18 150 h24" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+<path d="M0 176 L146 204 V246 H0Z" fill="#8d6e55"/>
+<path d="M146 204 H420 V246 H146Z" fill="#8d6e55"/>
+<path d="M146 204 H420" stroke="#6f8f5c" stroke-width="4"/>
+<path d="M146 48 H166 L212 204 H146Z" fill="#9aa6ad" stroke="#5f6d75" stroke-width="1.5"/>
+<path d="M240 214 H420 V232 H240Z" fill="#1b7fd1" opacity=".6"/>
+<path d="M348 206 H420 V214 H348Z" fill="#1b7fd1" opacity=".6"/>
+<path d="M346 210 h22 M388 210 h20 M270 223 h24 M320 223 h20" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+<path d="M126 150 h12 l-4 -4 M126 150 l-4 4 M124 168 h14 l-4 -4 M124 168 l-4 4" stroke="#fff" stroke-width="2" fill="none" opacity=".8"/>
+<rect x="141" y="144" width="7" height="34" fill="#37474f"/><path d="M143 148 v26 M146 148 v26" stroke="#9aa6ad" stroke-width="1"/>
+<path d="M146 162 H196 L214 188 H232" fill="none" stroke="#0d2b3a" stroke-width="9" stroke-linejoin="round"/>
+<path d="M146 162 H196 L214 188 H232" fill="none" stroke="#7fc3f2" stroke-width="5" stroke-linejoin="round"/>
+<rect x="206" y="146" width="68" height="58" fill="#cfd8dc" stroke="#5f6d75" stroke-width="1.5"/>
+<path d="M202 146 H278 L270 136 H210Z" fill="#a86d00"/>
+<circle cx="243" cy="190" r="12" fill="#f0a000" stroke="#0d2b3a" stroke-width="1.5"/>
+<path d="M243 179 V201 M232 190 H254 M235 182 L251 198 M251 182 L235 198" stroke="#0d2b3a" stroke-width="1.5"/>
+<path d="M243 178 V168" stroke="#0d2b3a" stroke-width="3"/>
+<rect x="230" y="152" width="26" height="16" rx="3" fill="#1f9d6b" stroke="#0d2b3a" stroke-width="1.5"/>
+<path d="M245 154 l-5 7 h4 l-2 6 6-9 h-4z" fill="#fff"/>
+<path d="M243 202 V218 H300" fill="none" stroke="#1b7fd1" stroke-width="9" opacity=".75"/>
+<path d="M243 202 V214" stroke="#0d2b3a" stroke-width="1" stroke-dasharray="2 2"/>
+<rect x="282" y="184" width="18" height="20" rx="2" fill="#78909c" stroke="#37474f" stroke-width="1.5"/>
+<path d="M286 188 v12 M291 188 v12 M296 188 v12" stroke="#37474f" stroke-width="1.5"/>
+<path d="M274 176 H291 V184" stroke="#0d2b3a" stroke-width="2" fill="none"/>
+<path d="M324 204 V104 M308 114 H340 M314 128 H334 M318 204 L324 160 L330 204" stroke="#0d2b3a" stroke-width="3" fill="none"/>
+<path d="M291 176 L308 114 M308 114 L260 100 M340 114 L420 126 M334 128 L420 144" stroke="#0d2b3a" stroke-width="1.3" fill="none"/>
+<path d="M370 70 l-7 14 h6 l-3 13 11-17 h-6z" fill="#f0a000"/>
+<g font-size="12" font-weight="700" fill="#0d2b3a" stroke="#e8f3fa" stroke-width="3" paint-order="stroke">
+<text x="10" y="20">${esc(l.lbl[0])}</text>
+<text x="132" y="38">${esc(l.lbl[1])}</text>
+<text x="44" y="136">${esc(l.lbl[6])} ▸</text>
+<text x="168" y="128">${esc(l.lbl[2])}</text>
+<text x="300" y="98">${esc(l.lbl[4])}</text>
+</g>
+<g font-size="11.5" font-weight="700" fill="#fff">
+<text x="8" y="236">${esc(l.lbl[3])}</text>
+<text x="256" y="230">${esc(l.lbl[8])}</text>
+<text x="356" y="228">${esc(l.lbl[5])}</text></g>
+</svg>`}
+function renderLearn(){
+  const l=L_TXT[lang];
+  $('#p-learn').innerHTML=`<details open><summary>${l.hydroQ}</summary>${hydroSVG(l)}<ol>${l.steps.map(s=>`<li>${s}</li>`).join('')}</ol></details>`+l.html}
 
 /* ---------- quiz ---------- */
 const ROUNDS=8;
 let guessLayer=L.layerGroup().addTo(map);
 function renderQuizIntro(){
-  $('#p-quiz').innerHTML=`<div class="big">Can you find it on the map?</div><p style="line-height:1.5">You'll get ${ROUNDS} places. Click where you think each one is. The closer you are, the more points you earn.</p>
-  <p style="font-size:13px;color:var(--ink2)">Uses the ${state.cat==='all'?'water and power':state.cat} places.</p><button class="btn" id="qs">Start quiz</button>`;
+  const c=state.cat;
+  $('#p-quiz').innerHTML=`<div class="big">${t('qTitle')}</div><p style="line-height:1.5">${t('qIntro')(ROUNDS)}</p>
+  <p style="font-size:13px;color:var(--ink2)">${t('qUses')(c)}</p><button class="btn" id="qs">${t('qStart')}</button>`;
   $('#qs').onclick=startQuiz}
 function startQuiz(){
   const pool=feats.filter(f=>state.cat==='all'||f.category===state.cat).sort(()=>Math.random()-.5).slice(0,ROUNDS);
@@ -348,9 +558,9 @@ function nextQ(){
   const q=state.quiz;guessLayer.clearLayers();
   if(q.i>=q.pool.length)return finishQuiz();
   q.answered=false;const f=q.pool[q.i];
-  $('#p-quiz').innerHTML=`<div class="score"><span>Question ${q.i+1} of ${q.pool.length}</span><span>${q.pts} pts</span></div>
+  $('#p-quiz').innerHTML=`<div class="score"><span>${t('qNum')(q.i+1,q.pool.length)}</span><span>${t('pts')(q.pts)}</span></div>
    <div class="progress"><div style="width:${q.i/q.pool.length*100}%"></div></div>
-   <div class="big">Find: ${esc(f.name)}</div><p style="color:var(--ink2);font-size:14px">${esc(f.state)} · ${esc(f.fuel?f.fuel+' power':f.type)}<br>Click the map to place your guess.</p><div id="fb"></div>`}
+   <div class="big">${t('qFind')}${esc(nm(f))}</div><p style="color:var(--ink2);font-size:14px">${esc(stN(f.state))} · ${esc(f.fuel?fuN(f.fuel)+t('power_sfx'):tyN(f.type))}<br>${t('qClick')}</p><div id="fb"></div>`}
 map.on('click',e=>{
   const q=state.quiz;if(!q||q.answered)return;q.answered=true;
   const f=q.pool[q.i],km=map.distance(e.latlng,[f.lat,f.lon])/1000,pts=km<30?10:km<80?7:km<200?4:km<400?2:0;q.pts+=pts;
@@ -358,35 +568,71 @@ map.on('click',e=>{
   L.marker([f.lat,f.lon],{icon:L.divIcon({className:'',html:`<div class="mk ${f.category}">${ICON[f.category]}</div>`,iconSize:[30,30]})}).addTo(guessLayer);
   L.polyline([e.latlng,[f.lat,f.lon]],{color:'#0d2b3a',dashArray:'6 6',weight:2}).addTo(guessLayer);
   map.flyToBounds(L.latLngBounds([e.latlng,[f.lat,f.lon]]).pad(.6),{duration:.8,maxZoom:9});
-  const cls=pts>=7?'good':pts>=2?'mid':'bad',msg=pts>=10?'Spot on!':pts>=7?'Very close!':pts>=2?'Getting warm.':'Quite far — look at the answer marker.';
-  $('#fb').innerHTML=`<div class="feedback ${cls}"><b>${msg}</b><br>You were ${Math.round(km)} km away. +${pts} points.<br><small>${esc(TEACH[f.kind].what.split('. ')[0])}.</small></div>
-   <button class="btn" id="nq">${q.i+1<q.pool.length?'Next question →':'See my score'}</button>`;
+  const cls=pts>=7?'good':pts>=2?'mid':'bad',M=t('qMsg'),msg=pts>=10?M[0]:pts>=7?M[1]:pts>=2?M[2]:M[3];
+  $('#fb').innerHTML=`<div class="feedback ${cls}"><b>${msg}</b><br>${t('qAway')(Math.round(km),pts)}<br><small>${esc(TEACH[lang][f.kind].what.split(/(?<=[.。])\s*/)[0])}</small></div>
+   <button class="btn" id="nq">${q.i+1<q.pool.length?t('qNext'):t('qSee')}</button>`;
   $('#nq').onclick=()=>{q.i++;nextQ()};
 });
 function finishQuiz(){
-  const q=state.quiz,max=q.pool.length*10;
-  $('#p-quiz').innerHTML=`<div class="big">You scored ${q.pts} / ${max}</div>
-   <div class="feedback ${q.pts>max*.7?'good':q.pts>max*.4?'mid':'bad'}">${q.pts>max*.7?'Excellent map skills!':q.pts>max*.4?'Good effort — try again to improve.':'Keep exploring the map, then try again.'}</div>
-   <button class="btn" id="qs">Play again</button> <button class="btn ghost" id="qe">Back to explore</button>`;
+  const q=state.quiz,max=q.pool.length*10,G=t('qGood');
+  $('#p-quiz').innerHTML=`<div class="big">${t('qScore')(q.pts,max)}</div>
+   <div class="feedback ${q.pts>max*.7?'good':q.pts>max*.4?'mid':'bad'}">${q.pts>max*.7?G[0]:q.pts>max*.4?G[1]:G[2]}</div>
+   <button class="btn" id="qs">${t('qAgain')}</button> <button class="btn ghost" id="qe">${t('qBack')}</button>`;
   $('#qs').onclick=startQuiz;$('#qe').onclick=()=>setTab('explore')}
 function endQuiz(){state.quiz=null;guessLayer.clearLayers();refresh();map.flyToBounds(home,{duration:.6})}
 
 /* ---------- presentation ---------- */
 function setPresent(on){
   state.present=on;document.body.classList.toggle('present',on);
+  if(!on&&autoTimer){clearInterval(autoTimer);autoTimer=null;syncTour()}
   if(on&&state.quiz)setTab('explore');
   setTimeout(()=>{map.invalidateSize();syncLabels();if(on)fitVisible()},60)}
-$('#btnPresent').onclick=()=>setPresent(true);$('#pExit').onclick=()=>setPresent(false);
+$('#btnPresent').onclick=()=>setPresent(true);
 $('#pNext').onclick=()=>step(1);$('#pPrev').onclick=()=>step(-1);
 addEventListener('keydown',e=>{
   if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
   if(e.key==='p'||e.key==='P')setPresent(!state.present);
+  else if(state.present&&(e.key==='o'||e.key==='O'))$('#pOrder').click();
+  else if(state.present&&e.key===' '){e.preventDefault();toggleAuto()}
   else if(e.key==='Escape'&&state.present)setPresent(false);
   else if(state.present&&e.key==='ArrowRight')step(1);
   else if(state.present&&e.key==='ArrowLeft')step(-1);
   else if(state.present&&e.key==='1')setCat('all');else if(state.present&&e.key==='2')setCat('water');else if(state.present&&e.key==='3')setCat('power');
 });
-refresh();syncLabels();
+
+/* ---------- tour order + autoplay ---------- */
+let autoTimer=null;
+function syncTour(){const o=$('#pOrder'),a=$('#pAuto');if(!o)return;
+  o.textContent=state.order==='state'?t('ordS'):t('ordA');a.textContent=autoTimer?t('pause'):t('auto')}
+function toggleAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null}else{step(1);autoTimer=setInterval(()=>step(1),9000)}syncTour()}
+/* ---------- apply language ---------- */
+function setLang(l){
+  lang=l;try{localStorage.setItem('lang',l)}catch(e){}
+  document.documentElement.lang=l==='zh'?'zh-Hans':'en';document.title=t('title');
+  $$('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+  $$('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+  $('#seg').innerHTML=`<button data-cat="all">${t('all')}<small id="cAll"></small></button><button data-cat="water">${t('water')}<small id="cWater"></small></button><button data-cat="power">${t('power')}<small id="cPower"></small></button>`;
+  $$('#seg button').forEach(b=>b.onclick=()=>setCat(b.dataset.cat));
+  $('#pbar').innerHTML=`<button data-cat="all">${t('all')}</button><button data-cat="water">${t('water')}</button><button data-cat="power">${t('power')}</button><button id="pOrder"></button><button id="pAuto"></button><button class="x" id="pExit">${t('exit')}</button>`;
+  $('#pOrder').onclick=()=>{state.order=state.order==='state'?'az':'state';syncTour();if(state.sel!==null)renderDetail()};
+  $('#pAuto').onclick=toggleAuto;syncTour();
+  $$('#pbar button[data-cat]').forEach(b=>b.onclick=()=>setCat(b.dataset.cat));$('#pExit').onclick=()=>setPresent(false);
+  const on=($('#tabs .on')||{dataset:{}}).dataset.tab||'explore';
+  $('#tabs').innerHTML=['explore','learn','quiz'].map(k=>`<button data-tab="${k}">${t(k)}</button>`).join('');
+  $$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===on));
+  $('#q').placeholder=t('search');$('#q').setAttribute('aria-label',t('search'));
+  $('#legend').innerHTML=`<div><span style="background:var(--water)"></span>${t('lgWater')}</div><div><span style="background:var(--power)"></span>${t('lgPower')}</div>`;
+  $('#chips').innerHTML=Object.entries(KINDS).map(([k,v])=>`<button class="chip" data-k="${k}" style="--c:${v.color}"><i></i>${t('k_'+k)}</button>`).join('');
+  $('#state').innerHTML=`<option value="">${t('allStates')}</option>`+[...new Set(feats.map(f=>f.state))].sort().map(s=>`<option value="${esc(s)}">${esc(stN(s))}</option>`).join('');
+  $('#state').value=state.st;
+  feats.forEach(f=>markers[f.id].setTooltipContent(esc(nm(f))).options.title=f.name);
+  renderLearn();
+  refresh();
+  if(state.sel!==null)renderDetail();else{$('#capT').textContent=t('capT');$('#capS').textContent=t('capS')}
+  if(state.quiz){if(state.quiz.i<state.quiz.pool.length)nextQ()}else if($('#p-quiz').innerHTML)renderQuizIntro();
+}
+$('#lang').onclick=e=>{const b=e.target.closest('button');if(b&&b.dataset.l!==lang)setLang(b.dataset.l)};
+setLang(lang);syncLabels();
 </script>
 </body>
 </html>

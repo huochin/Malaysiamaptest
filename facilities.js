@@ -891,6 +891,314 @@ window.FACILITIES = {
      2.5
     ]
    }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Ulu Jelai Hydroelectric Plant",
+    "state": "Pahang",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~372 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.58528,
+     4.45028
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Hulu Terengganu (Puah) Hydroelectric Plant",
+    "state": "Terengganu",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~250 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.60725,
+     5.151722
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Puah Dam",
+    "state": "Terengganu",
+    "category": "water",
+    "type": "Dam / reservoir (hydropower)",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.60725,
+     5.151722
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Azlan Shah (Bersia) Power Station",
+    "state": "Perak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~72 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.20925,
+     5.43086
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Azlan Shah (Kenering) Power Station",
+    "state": "Perak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~120 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.20922,
+     5.42997
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Beris Dam",
+    "state": "Kedah",
+    "category": "water",
+    "type": "Dam / reservoir (irrigation)",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.7413,
+     5.9684
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Connaught Bridge Power Station",
+    "state": "Selangor",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Gas",
+    "note": "Approx. capacity ~375 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.4667,
+     3.0333
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pulau Indah Power Station",
+    "state": "Selangor",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Gas",
+    "note": "Approx. capacity ~1200 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.2931,
+     2.8935
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tanjung Kling Power Station",
+    "state": "Melaka",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Gas"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.15194,
+     2.22333
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Teluk Gong Power Station",
+    "state": "Melaka",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Gas"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.0507,
+     2.3459
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sejingkat Power Station",
+    "state": "Sarawak",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Coal",
+    "note": "Approx. capacity ~210 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     110.4654,
+     1.6377
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Balingian Power Station",
+    "state": "Sarawak",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Coal",
+    "note": "Approx. capacity ~600 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     112.4729,
+     2.7409
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Kimanis Power Station",
+    "state": "Sabah",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Wikipedia / Global Energy Monitor coordinates (web research, Oct 2026)",
+    "confidence": "B",
+    "fuel": "Gas",
+    "note": "Approx. capacity ~285 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.8897,
+     5.6483
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Perting Dam",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Waze / JPS (water.gov.my) via web search",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.8932571,
+     3.506525
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bukit Kwong Dam",
+    "state": "Kelantan",
+    "category": "water",
+    "type": "Dam / reservoir (irrigation)",
+    "coordinate_source": "JPS description (degrees-minutes garbled in source); ~8.5 km SW of Rantau Panjang",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.965,
+     5.955
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Anak Endau Dam",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Dam / reservoir (irrigation)",
+    "coordinate_source": "Sungai Anak Endau river point (dam is ~0.5 km upstream of Kepasir confluence)",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.60274,
+     2.66619
+    ]
+   }
   }
  ]
 };
