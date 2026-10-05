@@ -1,0 +1,895 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bekok Dam",
+    "state": "Johor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "JPS + OSM/Mapcarta",
+    "confidence": "A"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.07116,
+     2.10732
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Labong Dam",
+    "state": "Johor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "JPS + OSM/Mapcarta",
+    "confidence": "A"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.66767,
+     2.58539
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Machap Dam",
+    "state": "Johor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "JPS + OSM/Mapcarta",
+    "confidence": "A"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.27134,
+     1.88805
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bakun Dam",
+    "state": "Sarawak",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Hydropower geographic source",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     114.05731,
+     2.76108
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Batang Ai Dam",
+    "state": "Sarawak",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Hydropower geographic source",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     111.87422,
+     1.14708
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Murum Dam",
+    "state": "Sarawak",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Hydropower geographic source",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     114.36758,
+     2.64917
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tenom Pangi Dam",
+    "state": "Sabah",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Hydropower geographic source",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.91214,
+     5.11544
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Mahmud / Kenyir Dam",
+    "state": "Terengganu",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Hydropower geographic source",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.91,
+     5.02361
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pergau Dam",
+    "state": "Kelantan",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Hydropower geographic source",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.70306,
+     5.625
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Batu Dam",
+    "state": "Selangor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.69,
+     3.24
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Klang Gates Dam",
+    "state": "Selangor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.76,
+     3.233
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Semenyih Dam",
+    "state": "Selangor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.88,
+     2.94
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Langat Dam",
+    "state": "Selangor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.87,
+     3.05
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sungai Selangor Dam",
+    "state": "Selangor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.45,
+     3.52
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Putrajaya Lake",
+    "state": "Putrajaya",
+    "category": "water",
+    "type": "Man-made lake / wetland",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.68,
+     2.93
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Air Itam Dam",
+    "state": "Penang",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.28,
+     5.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Teluk Bahang Dam",
+    "state": "Penang",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.22,
+     5.45
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Mengkuang Dam",
+    "state": "Penang",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.46,
+     5.28
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pedu Dam",
+    "state": "Kedah",
+    "category": "water",
+    "type": "Dam / reservoir (irrigation)",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.77,
+     6.25
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Timah Tasoh Dam",
+    "state": "Perlis",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.22,
+     6.55
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bukit Merah Reservoir",
+    "state": "Perak",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.65,
+     5.02
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Padang Saga Dam",
+    "state": "Kedah (Langkawi)",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     99.8,
+     6.37
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Temenggor Dam",
+    "state": "Perak",
+    "category": "water",
+    "type": "Dam / reservoir (hydropower)",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.3,
+     5.4167
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Chenderoh Dam",
+    "state": "Perak",
+    "category": "water",
+    "type": "Dam / reservoir (hydropower)",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.97,
+     4.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Abu Bakar (Jor) Dam",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Dam / reservoir (hydropower)",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.35,
+     4.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sembrong Dam",
+    "state": "Johor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.0,
+     2.0
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Linggiu Dam",
+    "state": "Johor",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.75,
+     2.05
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tasik Chini",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Natural lake",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.92,
+     3.43
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tasik Bera",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Natural lake / Ramsar wetland",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.6,
+     3.07
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Babagon Dam",
+    "state": "Sabah",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     116.2,
+     5.88
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bengoh Dam",
+    "state": "Sarawak",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     110.15,
+     1.3
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bakun Hydroelectric Plant",
+    "state": "Sarawak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Dam-site coordinate shared with the dam above",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~2400 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     114.05731,
+     2.76108
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Murum Hydroelectric Plant",
+    "state": "Sarawak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Dam-site coordinate shared with the dam above",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~944 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     114.36758,
+     2.64917
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Batang Ai Hydroelectric Plant",
+    "state": "Sarawak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Dam-site coordinate shared with the dam above",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~108 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     111.87422,
+     1.14708
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Mahmud (Kenyir) Power Station",
+    "state": "Terengganu",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Dam-site coordinate shared with the dam above",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~400 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     102.91,
+     5.02361
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pergau Hydroelectric Station",
+    "state": "Kelantan",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Dam-site coordinate shared with the dam above",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~600 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.70306,
+     5.625
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tenom Pangi Hydroelectric Plant",
+    "state": "Sabah",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Dam-site coordinate shared with the dam above",
+    "confidence": "B",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~66 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.91214,
+     5.11544
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Temenggor Power Station",
+    "state": "Perak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~348 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.3,
+     5.4167
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Chenderoh Power Station",
+    "state": "Perak",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~40.5 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.97,
+     4.9
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Yussuf (Jor) Power Station",
+    "state": "Pahang",
+    "category": "power",
+    "type": "Hydroelectric",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Hydro",
+    "note": "Approx. capacity ~100 MW"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.35,
+     4.4
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Manjung (Sultan Azlan Shah) Power Station",
+    "state": "Perak",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Coal"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.64,
+     4.195
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Salahuddin Abdul Aziz (Kapar) Power Station",
+    "state": "Selangor",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Coal / gas"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.36,
+     3.1
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tanjung Bin Power Station",
+    "state": "Johor",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Coal"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.54,
+     1.37
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Jimah Power Station",
+    "state": "Negeri Sembilan",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Coal"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.93,
+     2.43
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Sultan Ismail (Paka) Power Station",
+    "state": "Terengganu",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Gas"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.45,
+     4.6
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Pasir Gudang Power Station",
+    "state": "Johor",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Gas / diesel"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.9,
+     1.45
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Prai Power Station",
+    "state": "Penang",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Gas"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     100.38,
+     5.38
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Tuanku Jaafar (Port Dickson) Power Station",
+    "state": "Negeri Sembilan",
+    "category": "power",
+    "type": "Thermal",
+    "coordinate_source": "Approximate, from general geographic knowledge; verify before classroom use",
+    "confidence": "C",
+    "fuel": "Gas"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.8,
+     2.5
+    ]
+   }
+  }
+ ]
+}
