@@ -1145,6 +1145,60 @@ window.FACILITIES = {
      5.6483
     ]
    }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Perting Dam",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Dam / reservoir",
+    "coordinate_source": "Waze / JPS (water.gov.my) via web search",
+    "confidence": "B"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.8932571,
+     3.506525
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Bukit Kwong Dam",
+    "state": "Kelantan",
+    "category": "water",
+    "type": "Dam / reservoir (irrigation)",
+    "coordinate_source": "JPS description (degrees-minutes garbled in source); ~8.5 km SW of Rantau Panjang",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     101.965,
+     5.955
+    ]
+   }
+  },
+  {
+   "type": "Feature",
+   "properties": {
+    "name": "Anak Endau Dam",
+    "state": "Pahang",
+    "category": "water",
+    "type": "Dam / reservoir (irrigation)",
+    "coordinate_source": "Sungai Anak Endau river point (dam is ~0.5 km upstream of Kepasir confluence)",
+    "confidence": "C"
+   },
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     103.60274,
+     2.66619
+    ]
+   }
   }
  ]
 };

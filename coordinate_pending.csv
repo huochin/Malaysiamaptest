@@ -1,9 +1,9 @@
 dam,state,latitude,longitude,status
-Anak Endau,Pahang,,,Coordinate research pending
-Beris,Kedah,,,Coordinate research pending
-Bukit Kwong,Kelantan,,,Coordinate research pending
-Gopeng,Perak,,,Coordinate research pending
-Perting,Pahang,,,Coordinate research pending
-Pontian,Pahang,,,Coordinate research pending
-Repas Baru,Pahang,,,Coordinate research pending
-Repas Lama,Pahang,,,Coordinate research pending
+Anak Endau,Pahang,2.66619,103.60274,Added to map (approximate: river point; dam ~0.5 km upstream of Kepasir confluence)
+Beris,Kedah,5.9684,100.7413,Added to map (Wikipedia coordinates via web research)
+Bukit Kwong,Kelantan,5.955,101.965,Added to map (approximate: JPS text has garbled coordinates; ~8.5 km SW of Rantau Panjang)
+Gopeng,Perak,,,Coordinate research pending (only the town of Gopeng 4.472N 101.165E found; dam site not located)
+Perting,Pahang,3.506525,101.8932571,Added to map (Waze / JPS via web research)
+Pontian,Pahang,,,Coordinate research pending (no source found; note Pontian district is in Johor)
+Repas Baru,Pahang,,,Coordinate research pending (Bentong area; no dam coordinates found)
+Repas Lama,Pahang,,,Coordinate research pending (Bentong area; no dam coordinates found)

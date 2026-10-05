@@ -143,6 +143,7 @@ html[lang=zh-Hans] .head h1,html[lang=zh-Hans] .detail h2,html[lang=zh-Hans] .qu
 #caption .ctl button{background:#ffffff22;border:1px solid #ffffff66;color:#fff;border-radius:12px;padding:12px 18px;font-size:18px;font-weight:700}
 .pbar{display:none}
 .present .pbar{display:flex;position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:1000;background:#fff;border-radius:99px;padding:5px;box-shadow:0 4px 18px #0004;gap:4px}
+.pbar{flex-wrap:wrap;justify-content:center;max-width:96vw}
 .pbar button{border:0;background:none;border-radius:99px;padding:10px 22px;font-size:18px;font-weight:700;color:var(--ink2)}
 .pbar button.on[data-cat=all]{background:var(--ink);color:#fff}
 .pbar button.on[data-cat=water]{background:var(--water);color:#fff}
@@ -229,7 +230,7 @@ const UI={
   fState:'State',fType:'Type',fEnergy:'Energy',fSize:'Size',fCoord:'Coordinates',
   what:'What is it?',think:'Think about it',moreQ:'🔄 More questions',
   approxNote:'Location is approximate — teachers: check against JPS / TNB / OpenStreetMap before relying on exact position.',
-  sat:'🛰 See satellite',next:'Next place →',power_sfx:' power',photoBy:'Photo via Wikipedia',
+  ordS:'📍 By state → A–Z',ordA:'🔤 A–Z only',auto:'⏵ Auto',pause:'⏸ Pause',sat:'🛰 See satellite',next:'Next place →',power_sfx:' power',photoBy:'Photo via Wikipedia',
   capPrefix:'',sizeFix:v=>v.replace('Approx. capacity ',''),
   qTitle:'Can you find it on the map?',qIntro:n=>`You'll get ${n} places. Click where you think each one is. The closer you are, the more points you earn.`,
   qUses:c=>`Uses the ${c==='all'?'water and power':c} places.`,qStart:'Start quiz',
@@ -250,7 +251,7 @@ const UI={
   fState:'州属',fType:'类型',fEnergy:'能源',fSize:'规模',fCoord:'坐标',
   what:'这是什么？',think:'想一想',moreQ:'🔄 换一批问题',
   approxNote:'位置为近似值——老师请在使用精确位置前，对照 JPS / TNB / OpenStreetMap 核实。',
-  sat:'🛰 查看卫星图',next:'下一个地点 →',power_sfx:'发电',photoBy:'图片来源：维基百科',
+  ordS:'📍 按州属 → 字母',ordA:'🔤 仅按字母',auto:'⏵ 自动',pause:'⏸ 暂停',sat:'🛰 查看卫星图',next:'下一个地点 →',power_sfx:'发电',photoBy:'图片来源：维基百科',
   sizeFix:v=>v.replace('Approx. capacity ','约 '),
   qTitle:'你能在地图上找到它吗？',qIntro:n=>`将出现 ${n} 个地点。点击你认为它所在的位置，越接近得分越高。`,
   qUses:c=>`使用${c==='all'?'水与电力':c==='water'?'水资源':'电力'}类地点。`,qStart:'开始测验',
@@ -284,7 +285,7 @@ const ZH_GUESS={
  'Sultan Ismail (Paka) Power Station':'苏丹依斯迈（巴卡）发电站','Pasir Gudang Power Station':'巴西古当发电站','Prai Power Station':'北赖发电站',
  'Tuanku Jaafar (Port Dickson) Power Station':'端姑查化（波德申）发电站','Ulu Jelai Hydroelectric Plant':'乌鲁惹莱水力发电站',
  'Hulu Terengganu (Puah) Hydroelectric Plant':'上登嘉楼（普亚）水力发电站','Puah Dam':'普亚水坝','Sultan Azlan Shah (Bersia) Power Station':'苏丹阿兹兰沙（比尔西亚）发电站',
- 'Sultan Azlan Shah (Kenering) Power Station':'苏丹阿兹兰沙（克尼林）发电站','Beris Dam':'勿里斯水坝','Connaught Bridge Power Station':'康乐桥发电站',
+ 'Sultan Azlan Shah (Kenering) Power Station':'苏丹阿兹兰沙（克尼林）发电站','Beris Dam':'勿里斯水坝','Perting Dam':'柏廷水坝','Bukit Kwong Dam':'武吉宽水坝','Anak Endau Dam':'安纳恩多水坝','Connaught Bridge Power Station':'康乐桥发电站',
  'Pulau Indah Power Station':'依达岛发电站','Tanjung Kling Power Station':'丹绒格玲发电站','Teluk Gong Power Station':'直落公发电站',
  'Sejingkat Power Station':'实钦吉发电站','Balingian Power Station':'巴灵坚发电站','Kimanis Power Station':'基马尼斯发电站'};
 /* Wikipedia article used for the photo (hydro plants reuse the dam's photo); falls back to a search */
@@ -356,7 +357,7 @@ const zhVerified=f=>!!ZH_NAME[f.name];
 const stN=s=>lang==='zh'?(ZH_STATE[s]||s):s;
 const tyN=s=>lang==='zh'?(ZH_TYPE[s]||s):s;
 const fuN=s=>lang==='zh'?(ZH_FUEL[s]||s):s;
-const state={cat:'all',kinds:new Set(Object.keys(KINDS)),q:'',st:'',sel:null,present:false,quiz:null};
+const state={order:'state',cat:'all',kinds:new Set(Object.keys(KINDS)),q:'',st:'',sel:null,present:false,quiz:null};
 const visible=()=>feats.filter(f=>(state.cat==='all'||f.category===state.cat)&&state.kinds.has(f.kind)&&
   (!state.st||f.state===state.st)&&(!state.q||(f.name+' '+nm(f)+' '+f.state+' '+stN(f.state)).toLowerCase().includes(state.q)));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -439,12 +440,16 @@ function renderDetail(){
   getPhoto(f).then(p=>{const el=$('#photo');if(!p||!el||state.sel!==id)return;
     el.innerHTML=`<img alt="${esc(nm(f))}" src="${esc(p.src)}" loading="lazy"><figcaption>${t('photoBy')}: <a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a></figcaption>`;
     el.classList.add('on');el.querySelector('img').onerror=()=>el.classList.remove('on')});
-  $('#capT').textContent=nm(f);$('#capS').textContent=`${stN(f.state)} · ${f.fuel?fuN(f.fuel)+t('power_sfx'):tyN(f.type)} — ${T.what.split(/(?<=[.。])\s*/)[0]}`;
+  const tl=tourList(),pos=tl.findIndex(x=>x.id===f.id)+1;
+  $('#capT').textContent=nm(f);$('#capS').textContent=`${pos?pos+' / '+tl.length+' · ':''}${stN(f.state)} · ${f.fuel?fuN(f.fuel)+t('power_sfx'):tyN(f.type)} — ${T.what.split(/(?<=[.。])\s*/)[0]}`;
 }
 function closeDetail(){state.sel=null;$('#detail').hidden=true;$('#listView').hidden=false;$$('.mk').forEach(e=>e.classList.remove('sel'));
   $('#capT').textContent=t('capT');$('#capS').textContent=t('capS')}
+const stKey=s=>s.replace(/\s*\(.*\)/,'');
+function tourList(){const v=visible();
+  return state.order==='state'?[...v].sort((a,b)=>stKey(a.state).localeCompare(stKey(b.state))||a.name.localeCompare(b.name)):v}
 function step(d){
-  const v=visible();if(!v.length)return;
+  const v=tourList();if(!v.length)return;
   let i=v.findIndex(f=>f.id===state.sel);i=i<0?(d>0?0:v.length-1):(i+d+v.length)%v.length;
   select(v[i].id);
 }
@@ -579,6 +584,7 @@ function endQuiz(){state.quiz=null;guessLayer.clearLayers();refresh();map.flyToB
 /* ---------- presentation ---------- */
 function setPresent(on){
   state.present=on;document.body.classList.toggle('present',on);
+  if(!on&&autoTimer){clearInterval(autoTimer);autoTimer=null;syncTour()}
   if(on&&state.quiz)setTab('explore');
   setTimeout(()=>{map.invalidateSize();syncLabels();if(on)fitVisible()},60)}
 $('#btnPresent').onclick=()=>setPresent(true);
@@ -586,12 +592,19 @@ $('#pNext').onclick=()=>step(1);$('#pPrev').onclick=()=>step(-1);
 addEventListener('keydown',e=>{
   if(/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
   if(e.key==='p'||e.key==='P')setPresent(!state.present);
+  else if(state.present&&(e.key==='o'||e.key==='O'))$('#pOrder').click();
+  else if(state.present&&e.key===' '){e.preventDefault();toggleAuto()}
   else if(e.key==='Escape'&&state.present)setPresent(false);
   else if(state.present&&e.key==='ArrowRight')step(1);
   else if(state.present&&e.key==='ArrowLeft')step(-1);
   else if(state.present&&e.key==='1')setCat('all');else if(state.present&&e.key==='2')setCat('water');else if(state.present&&e.key==='3')setCat('power');
 });
 
+/* ---------- tour order + autoplay ---------- */
+let autoTimer=null;
+function syncTour(){const o=$('#pOrder'),a=$('#pAuto');if(!o)return;
+  o.textContent=state.order==='state'?t('ordS'):t('ordA');a.textContent=autoTimer?t('pause'):t('auto')}
+function toggleAuto(){if(autoTimer){clearInterval(autoTimer);autoTimer=null}else{step(1);autoTimer=setInterval(()=>step(1),9000)}syncTour()}
 /* ---------- apply language ---------- */
 function setLang(l){
   lang=l;try{localStorage.setItem('lang',l)}catch(e){}
@@ -600,7 +613,9 @@ function setLang(l){
   $$('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
   $('#seg').innerHTML=`<button data-cat="all">${t('all')}<small id="cAll"></small></button><button data-cat="water">${t('water')}<small id="cWater"></small></button><button data-cat="power">${t('power')}<small id="cPower"></small></button>`;
   $$('#seg button').forEach(b=>b.onclick=()=>setCat(b.dataset.cat));
-  $('#pbar').innerHTML=`<button data-cat="all">${t('all')}</button><button data-cat="water">${t('water')}</button><button data-cat="power">${t('power')}</button><button class="x" id="pExit">${t('exit')}</button>`;
+  $('#pbar').innerHTML=`<button data-cat="all">${t('all')}</button><button data-cat="water">${t('water')}</button><button data-cat="power">${t('power')}</button><button id="pOrder"></button><button id="pAuto"></button><button class="x" id="pExit">${t('exit')}</button>`;
+  $('#pOrder').onclick=()=>{state.order=state.order==='state'?'az':'state';syncTour();if(state.sel!==null)renderDetail()};
+  $('#pAuto').onclick=toggleAuto;syncTour();
   $$('#pbar button[data-cat]').forEach(b=>b.onclick=()=>setCat(b.dataset.cat));$('#pExit').onclick=()=>setPresent(false);
   const on=($('#tabs .on')||{dataset:{}}).dataset.tab||'explore';
   $('#tabs').innerHTML=['explore','learn','quiz'].map(k=>`<button data-tab="${k}">${t(k)}</button>`).join('');

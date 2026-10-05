@@ -50,6 +50,7 @@ before exact use. Remaining dams without coordinates are in `coordinate_pending.
 ## Teacher / student guide (v2 redesign)
 
 - **Present to class** (or press `P`): full-screen map, big labels and a caption bar. `←`/`→` step through places, `1/2/3` = All/Water/Power, `Esc` exits.
+  The tour loops **by state, then A–Z** (toggle with the 📍 button or `O`); ⏵ Auto (or Space) advances every 9 s.
 - **Explore**: filter by Water/Power, type, state or search; each place has a plain-language explanation and "Think about it" discussion questions.
 - **Learn**: short explainers (how hydro works, why dams are in highlands, trade-offs).
 - **Quiz**: click the map to find 8 random places; scored by distance. For students after class.
@@ -71,4 +72,4 @@ Known ambiguity: 红土坎 is used for both Lumut and Bukit Merah in different s
 
 Coordinates from Wikipedia / Global Energy Monitor (confidence B): Ulu Jelai, Hulu Terengganu (Puah) hydro + dam,
 Sultan Azlan Shah Bersia & Kenering hydro, Beris Dam, and thermal plants Connaught Bridge, Pulau Indah,
-Tanjung Kling, Teluk Gong, Sejingkat, Balingian, Kimanis. Dam/plant pairs share one coordinate.
+Tanjung Kling, Teluk Gong, Sejingkat, Balingian, Kimanis. Perting (B), Bukit Kwong and Anak Endau (C, approximate) were added from `coordinate_pending.csv`; Gopeng, Pontian and Repas Baru/Lama are still pending. Dam/plant pairs share one coordinate.
