@@ -1,0 +1,149 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bekok Dam",
+        "state": "Johor",
+        "coordinate_source": "JPS + OSM/Mapcarta",
+        "confidence": "A"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.07116,
+          2.10732
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Labong Dam",
+        "state": "Johor",
+        "coordinate_source": "JPS + OSM/Mapcarta",
+        "confidence": "A"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.66767,
+          2.58539
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Machap Dam",
+        "state": "Johor",
+        "coordinate_source": "JPS + OSM/Mapcarta",
+        "confidence": "A"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.27134,
+          1.88805
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bakun Dam",
+        "state": "Sarawak",
+        "coordinate_source": "Hydropower geographic source",
+        "confidence": "B"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.05731,
+          2.76108
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Batang Ai Dam",
+        "state": "Sarawak",
+        "coordinate_source": "Hydropower geographic source",
+        "confidence": "B"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.87422,
+          1.14708
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Murum Dam",
+        "state": "Sarawak",
+        "coordinate_source": "Hydropower geographic source",
+        "confidence": "B"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          114.36758,
+          2.64917
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Tenom Pangi Dam",
+        "state": "Sabah",
+        "coordinate_source": "Hydropower geographic source",
+        "confidence": "B"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          115.91214,
+          5.11544
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sultan Mahmud / Kenyir Dam",
+        "state": "Terengganu",
+        "coordinate_source": "Hydropower geographic source",
+        "confidence": "B"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.91,
+          5.02361
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pergau Dam",
+        "state": "Kelantan",
+        "coordinate_source": "Hydropower geographic source",
+        "confidence": "B"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.70306,
+          5.625
+        ]
+      }
+    }
+  ]
+}
